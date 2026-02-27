@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FisioCalc - Avaliação</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>FisioCalc</h1>
+        <p>Valores Preditivos Cardiorrespiratórios e Força</p>
+      </header>
+
+      <main class="form-section">
+        <div id="error-message" class="error-text hidden">
+          Por favor, preencha todos os campos corretamente.
+        </div>
+
+        <div class="input-group">
+          <label for="nome">Nome do Paciente</label>
+          <input type="text" id="nome" placeholder="" required />
+        </div>
+
+        <div class="grid-inputs">
+          <div class="input-group">
+            <label for="idade">Idade (anos)</label>
+            <input type="number" id="idade" required />
+          </div>
+          <div class="input-group">
+            <label for="genero">Gênero</label>
+            <select id="genero" required>
+              <option value="" disabled selected>Selecione...</option>
+              <option value="masculino">Masculino</option>
+              <option value="feminino">Feminino</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="peso">Peso (kg)</label>
+            <input type="number" id="peso" required />
+          </div>
+          <div class="input-group">
+            <label for="altura">Altura (cm)</label>
+            <input type="number" id="altura" required />
+          </div>
+        </div>
+
+        <button id="btnCalcular">
+          <span id="btn-text">Calcular Valores Previstos</span>
+          <span id="btn-spinner" class="spinner hidden"></span>
+        </button>
+      </main>
+
+      <section id="resultado" class="result-section hidden">
+        <h3>Paciente: <span id="res-nome"></span></h3>
+
+        <h4 class="section-title">Manovacuometria Prevista</h4>
+        <div class="result-cards">
+          <div class="card">
+            <h4>PImax</h4>
+            <p><span id="pi-val">--</span> <small>cmH2O</small></p>
+          </div>
+          <div class="card">
+            <h4>PEmax</h4>
+            <p><span id="pe-val">--</span> <small>cmH2O</small></p>
+          </div>
+        </div>
+
+        <h4 class="section-title" style="margin-top: 20px">
+          Dinamometria Prevista
+        </h4>
+        <div class="result-cards secondary-result">
+          <div class="card">
+            <h4>Mão Dominante</h4>
+            <p><span id="dom-val">--</span> <small>kgf</small></p>
+          </div>
+          <div class="card">
+            <h4>Não Dominante</h4>
+            <p><span id="ndom-val">--</span> <small>kgf</small></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>© Calculadora da Isabella Eira | 2026</p>
+    </footer>
+
+    <script src="scripts/calculos.js"></script>
+  </body>
+</html>
