@@ -49,9 +49,9 @@ function calcularTudo(paciente) {
 
   if (paciente.genero === "masculino") {
     piPrevista = -0.8 * paciente.idade + 155.3;
-    pePrevista = -0.49 * paciente.idade + 110.4;
+    pePrevista = -0.81 * paciente.idade + 165.3;
   } else {
-    piPrevista = -0.81 * paciente.idade + 165.3;
+    piPrevista = -0.49 * paciente.idade + 110.4;
     pePrevista = -0.61 * paciente.idade + 115.6;
   }
 
