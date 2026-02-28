@@ -1,5 +1,4 @@
 document.getElementById("btnCalcular").addEventListener("click", function () {
-  // 1. Constantes individuais (apenas os dados básicos)
   const nome = document.getElementById("nome").value.trim();
   const idade = parseInt(document.getElementById("idade").value);
   const peso = parseFloat(document.getElementById("peso").value);
@@ -20,7 +19,6 @@ document.getElementById("btnCalcular").addEventListener("click", function () {
 
   if (!validarPacienteHandler(paciente)) return;
 
-  // 2. Ativa o estado de "Carregando"
   btnCalcular.disabled = true;
   btnText.innerText = "Calculando...";
   btnSpinner.classList.remove("hidden");
@@ -36,9 +34,9 @@ document.getElementById("btnCalcular").addEventListener("click", function () {
 });
 
 function calcularTudo(paciente) {
-  // CÁLCULO MANOVACUOMETRIA (Black & Hyatt)
   let piPrevista = 0;
   let pePrevista = 0;
+  let genero;
 
   if (paciente.genero === "masculino") {
     piPrevista = -0.8 * paciente.idade + 155.3;
@@ -47,9 +45,6 @@ function calcularTudo(paciente) {
     piPrevista = -0.49 * paciente.idade + 110.4;
     pePrevista = -0.61 * paciente.idade + 115.6;
   }
-
-  // CÁLCULO DINAMOMETRIA (Força de Preensão Palmar - FPP)
-  let genero;
 
   if (paciente.genero === "masculino") {
     genero = 1;
