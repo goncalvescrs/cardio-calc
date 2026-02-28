@@ -6,18 +6,9 @@ document.getElementById("btnCalcular").addEventListener("click", function () {
   const altura = parseFloat(document.getElementById("altura").value);
   const genero = document.getElementById("genero").value;
 
-  const msgErro = document.getElementById("error-message");
   const btnCalcular = document.getElementById("btnCalcular");
   const btnText = document.getElementById("btn-text");
   const btnSpinner = document.getElementById("btn-spinner");
-
-  if (!nome || isNaN(idade) || isNaN(peso) || isNaN(altura) || !genero) {
-    msgErro.classList.remove("hidden");
-    document.getElementById("resultado").classList.add("hidden");
-    return;
-  }
-
-  msgErro.classList.add("hidden");
 
   const paciente = {
     nome,
@@ -27,17 +18,19 @@ document.getElementById("btnCalcular").addEventListener("click", function () {
     genero,
   };
 
+  if (!validarPacienteHandler(paciente)) return;
+
   // 2. Ativa o estado de "Carregando"
   btnCalcular.disabled = true;
   btnText.innerText = "Calculando...";
   btnSpinner.classList.remove("hidden");
-  document.getElementById("resultado").classList.add("hidden"); // Esconde resultado anterior
+  document.getElementById("resultado").classList.add("hidden");
 
   setTimeout(() => {
     calcularTudo(paciente);
 
     btnCalcular.disabled = false;
-    btnText.innerText = "Calcular Valores Previstos";
+    btnText.innerText = "Calcular Valores";
     btnSpinner.classList.add("hidden");
   }, 1500);
 });
@@ -78,6 +71,33 @@ function calcularTudo(paciente) {
   );
 }
 
+function validarPacienteHandler(paciente) {
+  if (
+    !paciente.nome ||
+    isNaN(paciente.idade) ||
+    isNaN(paciente.peso) ||
+    isNaN(paciente.altura) ||
+    !paciente.genero
+  ) {
+    mostrarErro("Por favor, preencha todos os campos corretamente.");
+    return false;
+  }
+  if (paciente.idade < 1 || paciente.idade > 110) {
+    mostrarErro("Insira uma IDADE válida.");
+    return false;
+  }
+  if (paciente.peso < 1 || paciente.peso > 300) {
+    mostrarErro("Insira um PESO válido!");
+    return false;
+  }
+  if (paciente.altura < 50 || paciente.altura > 250) {
+    mostrarErro("Insira um ALTURA válida");
+    return false;
+  }
+
+  return true;
+}
+
 function exibirResultados(nome, pi, pe, dom, ndom) {
   document.getElementById("res-nome").innerText = nome;
 
@@ -92,4 +112,19 @@ function exibirResultados(nome, pi, pe, dom, ndom) {
   const resultadoSection = document.getElementById("resultado");
   resultadoSection.classList.remove("hidden");
   resultadoSection.scrollIntoView({ behavior: "smooth" });
+}
+
+function mostrarErro(mensagem) {
+  const container = document.getElementById("error-container");
+  const divErro = document.createElement("div");
+
+  divErro.className = "error-text";
+  divErro.innerText = mensagem;
+  container.innerHTML = "";
+  container.appendChild(divErro);
+
+  setTimeout(() => {
+    divErro.style.animation = "none";
+    divErro.remove();
+  }, 3000);
 }
